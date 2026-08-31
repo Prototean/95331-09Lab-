@@ -93,7 +93,7 @@ public class EventController {
                 .build());
     }
 
-    @GetMapping("/events")
+    @GetMapping("events")
     public ResponseEntity<?> getEventLists(@RequestParam(value = "_limit", required = false)Integer perPage
             ,@RequestParam(value = "_page", required = false)Integer page) {
                 perPage = perPage == null?eventList.size():perPage;
