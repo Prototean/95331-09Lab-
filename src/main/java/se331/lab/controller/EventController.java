@@ -22,16 +22,12 @@ public class EventController {
     @GetMapping("events")
     public ResponseEntity<?> getEventLists(@RequestParam(value = "_limit", required = false)Integer perPage
             ,@RequestParam(value = "_page", required = false)Integer page) {
-                perPage = perPage == null ? eventList.size():perPage;
-                page = page == null?1:page;
-                Integer firstIndex = (page-1)*perPage;
-                List<Event> output = new ArrayList<>();
+                List<Event> output = null;
+                Integer eventSize = eventService.getEventSize();
                 HttpHeaders responseHeader = new HttpHeaders();
-                responseHeader.set("x-total-count", String.valueOf(eventList.size()));
+                responseHeader.set("x-total-count", String.valueOf(eventSize));
                 try {
-                    for (int i = firstIndex; i < firstIndex + perPage; i++) {
-                        output.add(eventList.get(i));
-                    }
+                    output = eventService.getEvents(perPage, page);
                     return ResponseEntity.ok().headers(responseHeader).body(output);
                 }catch (IndexOutOfBoundsException ex){
                     return  ResponseEntity.ok().headers(responseHeader).body(output);
@@ -43,14 +39,7 @@ public class EventController {
 
     @GetMapping("events/{id}")
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
-        Event output = null;
-        for (Event event:
-                eventList) {
-            if (event.getId().equals(id)) {
-                output = event;
-                break;
-            }
-        }
+        Event output = eventService.getEvent(id);
         if (output != null ){
             return ResponseEntity.ok(output);
         }else{
