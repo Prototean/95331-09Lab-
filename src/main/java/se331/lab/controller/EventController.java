@@ -107,9 +107,9 @@ public class EventController {
                     for (int i = firstIndex; i < firstIndex + perPage; i++) {
                         output.add(eventList.get(i));
                     }
-                    return ResponseEntity.ok().header(String.valueOf(responseHeader)).body(output);
+                    return ResponseEntity.ok().headers(responseHeader).body(output);
                 }catch (IndexOutOfBoundsException ex){
-                    return  ResponseEntity.ok().header(String.valueOf(responseHeader)).body(output);
+                    return  ResponseEntity.ok().headers(responseHeader).body(output);
                 }
 
 
