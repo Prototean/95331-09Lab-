@@ -22,8 +22,11 @@ public class Application {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**")
+                registry.addMapping("/events")
                         .allowedOrigins("http://localhost:5173");
+                registry.addMapping("/events/*")
+                        .allowedOrigins("http://localhost:5173");
+
             }
         };
     }
