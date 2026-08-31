@@ -1,5 +1,7 @@
 package se331.lab.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se331.lab.entity.Event;
 
@@ -85,5 +87,11 @@ public class EventController {
                 .petsAllowed(false)
                 .organizer("Broody Kill")
                 .build());
+    }
+
+    @GetMapping("/events")
+    public ResponseEntity<?> getEventLists() {
+        return ResponseEntity.ok(eventList);
+
     }
 }
