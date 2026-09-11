@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import se331.lab.entity.Organizer;
-import se331.lab.service.OrganizeService;
+import se331.lab.service.OrganizerService;
 
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class OrganizeController {
-    final OrganizeService organizeService;
+public class OrganizerController {
+    final OrganizerService organizerService;
     @GetMapping("organizers")
-    public ResponseEntity<?> getEventLists(@RequestParam(value = "_limit", required = false)Integer perPage
+    public ResponseEntity<?> getOrganizerLists(@RequestParam(value = "_limit", required = false)Integer perPage
             ,@RequestParam(value = "_page", required = false)Integer page) {
         List<Organizer> output = null;
-        Integer organizeSize = organizeService.getOrgSize();
+        Integer organizeSize = organizerService.getOrgSize();
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("x-total-count", String.valueOf(organizeSize));
         try {
-            output = organizeService.getOrg(perPage, page);
+            output = organizerService.getOrg(perPage, page);
             return ResponseEntity.ok().headers(responseHeader).body(output);
         }catch (IndexOutOfBoundsException ex){
             return  ResponseEntity.ok().headers(responseHeader).body(output);
@@ -39,7 +39,7 @@ public class OrganizeController {
 
     @GetMapping("organizers/{id}")
     public ResponseEntity<?> getOrganize(@PathVariable("id") Long id) {
-        Organizer output = organizeService.getOrg(id);
+        Organizer output = organizerService.getOrg(id);
         if (output != null ){
             return ResponseEntity.ok(output);
         }else{

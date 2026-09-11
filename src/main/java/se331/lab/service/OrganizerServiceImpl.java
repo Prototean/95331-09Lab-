@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrganizerServiceImpl implements OrganizeService{
+public class OrganizerServiceImpl implements OrganizerService {
     final OrganizerDao organizerDao;
     @Override
     public Integer getOrgSize(){
