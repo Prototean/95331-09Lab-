@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import se331.lab.entity.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ public class Organizer {
     Long id;
     String name;
     @OneToMany (mappedBy = "organizer")
-    List<Event> ownEvents;
+    @Builder.Default
+    List<Event> ownEvents = new ArrayList<>();
 
 }
