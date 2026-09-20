@@ -2,7 +2,6 @@ package se331.lab.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import se331.lab.entity.Event;
 
 import java.util.List;
 
@@ -12,13 +11,13 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Organizer {
+public class Participant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
     String name;
-    @OneToMany (mappedBy = "organizer")
-    List<Event> ownEvents;
-
+    String telNo;
+    @ManyToMany
+    List<Event> eventHistories;
 }
