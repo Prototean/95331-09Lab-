@@ -7,24 +7,13 @@ import org.springframework.stereotype.Component;
 import se331.lab.entity.Event;
 import se331.lab.entity.Organizer;
 import se331.lab.repository.EventRepository;
-import se331.lab.repository.OrganizerRepository;
 
 @Component
 @RequiredArgsConstructor
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final EventRepository eventRepostiory;
-    final OrganizerRepository organizerRepository;
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        organizerRepository.save(Organizer.builder()
-                .organizer("CAMT").build());
-        organizerRepository.save(Organizer.builder()
-                .organizer("CMU").build());
-        organizerRepository.save(Organizer.builder()
-                .organizer("Chiang Mai").build());
-        organizerRepository.save(Organizer.builder()
-                .organizer("Chiang Mai Municipality").build());
-
         eventRepostiory.save(Event.builder()
                 .category("Academic")
                 .title("Midterm Exam")
