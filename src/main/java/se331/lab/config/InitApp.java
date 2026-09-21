@@ -7,8 +7,12 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import se331.lab.entity.Event;
 import se331.lab.entity.Organizer;
+import se331.lab.entity.Participant;
 import se331.lab.repository.EventRepository;
 import se331.lab.repository.OrganizerRepository;
+import se331.lab.repository.ParticipantRepository;
+
+import java.util.List;
 
 
 @Component
@@ -16,6 +20,7 @@ import se331.lab.repository.OrganizerRepository;
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final EventRepository eventRepostiory;
     final OrganizerRepository organizerRepository;
+    final ParticipantRepository participantRepository;
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -71,6 +76,40 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         tempEvent.setOrganizer(org3);
         org3.getOwnEvents().add(tempEvent);
+
+        List<Event> events = eventRepostiory.findAll();
+        Event event1 = events.get(0);
+        Event event2 = events.get(1);
+        Event event3 = events.get(2);
+        Event event4 = events.get(3);
+
+        Participant par1,par2,par3,par4,par5;
+        par1 = participantRepository.save(Participant.builder()
+                .name("Thanachai Srisawat")
+                .telNo("081-111-1111")
+                .build());
+        par2 = participantRepository.save(Participant.builder()
+                .name("Nattapong Wongchai")
+                .telNo("082-222-2222")
+                .build());
+        par3 = participantRepository.save(Participant.builder()
+                .name("Suda Chaiyaporn")
+                .telNo("083-333-3333")
+                .build());
+        par4 = participantRepository.save(Participant.builder()
+                .name("Malee Jaidee")
+                .telNo("084-444-4444")
+                .build());
+        par5 = participantRepository.save(Participant.builder()
+                .name("Anan Boonmee")
+                .telNo("085-555-5555")
+                .build());
+
+        par1.getEventHistories().addAll(List.of(event1, event2, event3));
+        par2.getEventHistories().addAll(List.of(event2, event3, event4));
+        par3.getEventHistories().addAll(List.of(event1, event3, event4));
+        par4.getEventHistories().addAll(List.of(event1, event2));
+        par5.getEventHistories().addAll(List.of(event1, event2, event4));
     }
 
 }

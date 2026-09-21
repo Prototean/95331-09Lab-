@@ -3,6 +3,7 @@ package se331.lab.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,5 +20,7 @@ public class Participant {
     String name;
     String telNo;
     @ManyToMany
-    List<Event> eventHistories;
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    List<Event> eventHistories = new ArrayList<>();
 }
