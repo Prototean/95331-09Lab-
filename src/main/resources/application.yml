@@ -1,11 +1,14 @@
 #spring.application.name=331-backend
 
 spring:
+  application:
+    name: 331-backend
+  mvc:
+    problemdetails:
+      enabled: true
   profiles:
     active:
       - db
-  application:
-    name: 331-backend
   datasource:
     url: jdbc:postgresql://localhost:5432/selabdb
     username: postgres
